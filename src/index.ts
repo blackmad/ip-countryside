@@ -1,6 +1,5 @@
-export const Greeter = (name: string) => `Hello ${name}`;
-
-const fs = require("fs");
+const fs = require('fs');
+const path = require('path')
 
 // convert the ip address to a decimal
 // assumes dotted decimal format for input
@@ -53,7 +52,7 @@ function binSearch(start: number, end: number, ip: number): number {
 export function geoip(ip: string): string | null {
   const decimalIp = convertIpToDecimal(ip);
   if (decimalIp == -1) {
-    throw `invalid ip: ${decimalIp}`;
+    throw new Error(`invalid ip: ${ip}`);
   }
   const index = binSearch(0, geoIpCountryEntries.length, decimalIp)
   if (index == -1) {
@@ -63,7 +62,7 @@ export function geoip(ip: string): string | null {
   }
 }
 
-const contents: string = fs.readFileSync("ip2country.db", "utf8");
+const contents: string = fs.readFileSync(path.join(__dirname, "ip2country.db"), "utf8");
 const lines: string[] = contents.split("\n");
 
 class CountryGeoIpEntry {
@@ -90,51 +89,3 @@ lines.forEach((line: string) => {
 geoIpCountryEntries = geoIpCountryEntries.sort(
   (a: CountryGeoIpEntry, b: CountryGeoIpEntry) => a.start_ip - b.start_ip
 );
-
-
-
-// $file = fopen("ip2country.db", "r") or die("Unable to open IP DB!");
-// $last_modified = date("l, dS F Y, h:i a", filemtime("ip2country.zip"));
-// $db_size = ceil(filesize("ip2country.zip")/1024);
-// $count = 0;
-// while(!feof($file)) {
-//     list($start_ip[$count], $end_ip[$count], $country[$count]) = split(" ",fgets($file));
-//     $count++;
-// }
-//     $error_code = 0;
-//     list($a, $b, $c, $d) = split("\.",$ip);
-//     if ((is_numeric($a) && is_numeric($b) && is_numeric($c) && is_numeric($d)) &&
-//           (($a >= 0 && $a <= 255) && ($b >= 0 && $b <= 255) && ($c >= 0 && $c <= 255) && ($d >= 0 && $d <=255))){
-//             $ipvalue = (int)$a*256*256*256 + (int)$b*256*256 + (int)$c*256 + (int)$d;
-//         }
-//     else {
-//         $comment = "You entered an invalid IP address!";
-//         fclose($file);
-//         $error_code = 1;
-//     }
-//     if ($error_code == 0) {
-//         $cn = $country[binSearch(0,$count-1,$ipvalue)];
-//         $cn_name = "Unknown";
-//         $flag = strtolower($cn);
-//         $handle = fopen ("countries.txt","r");
-//         while ( ($data = fgetcsv ($handle, 1000, ";")) !== FALSE ) {
-//             if(trim($data[1]) == trim($cn)) {
-//                 $cn_name = ucfirst(strtolower($data[0]));
-//             }
-//         }
-//         fclose($file);
-//     }
-// function binSearch($start,$end,$search) {
-//     global $start_ip, $end_ip;
-//     $mid = $start+(int)(($end-$start)/2);
-//     if ($end < $start) {
-//         return -1;
-//     }
-//     if ($search < (int)$start_ip[$mid]) {
-//         return binSearch($start, $mid-1, $search);
-//     }
-//     else if ($search > (int)$end_ip[$mid]) {
-//         return binSearch($mid+1, $end, $search);
-//       }
-//     else return $mid;
-// }
