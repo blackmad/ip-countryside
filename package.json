@@ -1,6 +1,6 @@
 {
   "name": "ip-countryside",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "ip to country lookup using ip-countryside data",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
