@@ -1,0 +1,19 @@
+{
+  "name": "ip-countryside",
+  "version": "1.0.1",
+  "description": "ip to country lookup using ip-countryside data",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "author": "David Blackman <david@blackmad.com>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "typescript": "^3.7.3"
+  },
+  "dependencies": {
+    "@types/node": "^12.12.14"
+  }
+}
